@@ -1,0 +1,48 @@
+{
+    "name": "kmuenkel/validation-patch",
+    "description": "Correct for various issues in Laravel Validation",
+    "time": "2020-11-30 16:00:00",
+    "authors": [
+        {
+            "name": "Kevin Muenkel",
+            "email": "kevin_tm@yahoo.com"
+        }
+    ],
+    "keywords": [
+        "Laravel",
+        "Validation",
+        "Fix"
+    ],
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "illuminate/validation": "^7.0|^8.0"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "^1.9",
+        "phpunit/phpunit": "^9.4",
+        "mockery/mockery": "^1.4",
+        "barryvdh/laravel-ide-helper": "^2.8",
+        "orchestra/testbench": "^5.7",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "squizlabs/php_codesniffer": "^3.5",
+        "phpmd/phpmd": "^2.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "ValidationPatch\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ValidationPatch\\Providers\\ValidationPatchServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
