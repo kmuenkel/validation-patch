@@ -131,6 +131,20 @@ class Validator extends BaseValidator
     }
 
     /**
+     * @return string[]
+     */
+    public function getIsoFormats(): array
+    {
+        return [
+            DateTime::ISO8601,
+            'Y-m-d\TH:i:svO',
+            'Y-m-d\TH:i:s\Z',
+            'Y-m-d\TH:i:s.v\Z',
+            'c'
+        ];
+    }
+
+    /**
      * ISO8601 can be represented with a colon in the timezone ("c"), without one (DateTime::ISO8601), or Zulu
      * @inheritDoc
      */
@@ -143,17 +157,17 @@ class Validator extends BaseValidator
         }
 
         $format = $parameters[0];
-        $date = DateTime::createFromFormat("!$format", $value);
-        $acceptable = [$date->format($format)];
+        $isoFormats = $this->getIsoFormats();
+        $formats = in_array($format, $isoFormats) ? $isoFormats : [$format];
 
-        if (in_array($format, [DateTime::ISO8601, 'c', 'Y-m-d\TH:i:s\Z'])) {
-            $acceptable += [
-                $date->format(DateTime::ISO8601),
-                $date->format('c'),
-                gmdate('Y-m-d\TH:i:s\Z', $date->getTimestamp())
-            ];
+        foreach ($formats as $format) {
+            $date = DateTime::createFromFormat($format, $value);
+
+            if ($date && $date->format($format) == $value) {
+                return true;
+            }
         }
 
-        return $date && in_array($value, $acceptable);
+        return false;
     }
 }
