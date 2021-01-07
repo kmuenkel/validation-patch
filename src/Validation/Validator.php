@@ -133,7 +133,7 @@ class Validator extends BaseValidator
     /**
      * @return string[]
      */
-    public function getIsoFormats(): array
+    public static function getIsoFormats(): array
     {
         return [
             DateTime::ISO8601,
@@ -157,7 +157,7 @@ class Validator extends BaseValidator
         }
 
         $format = $parameters[0];
-        $isoFormats = $this->getIsoFormats();
+        $isoFormats = static::getIsoFormats();
         $formats = in_array($format, $isoFormats) ? $isoFormats : [$format];
 
         foreach ($formats as $format) {
